@@ -768,10 +768,10 @@ exportgraphics(hax,filename,'Resolution',600)
 end
 
 function hfig = stdplot(i)
-fontsize  = 6;%14;
-linewidth = 1;%2;
-% fontsize  = 14;
-% linewidth = 2;
+% fontsize  = 6;%14;
+% linewidth = 1;%2;
+fontsize  = 20;
+linewidth = 2;
 hfig=figure(i);
 clf(hfig);
 dim = [7.5 5.5 6.25 2.5];

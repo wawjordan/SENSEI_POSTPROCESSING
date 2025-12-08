@@ -88,6 +88,17 @@ end
 end
 
 function F = read_surface_forces_from_folder(folder,reconstruct)
+% if ( nargin > 1 )&&( reconstruct )
+%     surface_pat = { '*-primal_rec-surface_forces.dat',    ...%
+%                     '*-ete_rec-surface_forces.dat',       ...%
+%                     '*-ic_rec-surface_forces.dat',        ...%
+%                     '*-exact_rec-surface_forces.dat' };
+% else
+%     surface_pat = { '*-primal-surface_forces.dat',    ...%
+%                    '*-ete-surface_forces.dat',       ...%
+%                    '*-ic-surface_forces.dat',        ...%
+%                    '*-exact-surface_forces.dat' };
+% end
 if ( nargin > 1 )&&( reconstruct )
     surface_pat = { '*-primal_rec-surface_forces.dat',    ...%
                     '*-ete_rec-surface_forces.dat',       ...%
@@ -97,9 +108,8 @@ else
     surface_pat = { '*-primal-surface_forces.dat',    ...%
                    '*-ete-surface_forces.dat',       ...%
                    '*-ic-surface_forces.dat',        ...%
-                   '*-exact-surface_forces.dat' };
+                   '*-exact_exact_eval-surface_forces.dat' };
 end
-
 F = struct();
 
 % first check for the number of primal-force_history files
@@ -129,28 +139,28 @@ for i = 1:N_files
     TMP = dir(fullfile(folder,folders{i},surface_pat{2}));
     if (isempty(TMP))
         warning('No ete-surface_forces.dat in folder: %s\n',folders{i})
-        continue
+    else
+        file_name = fullfile(TMP.folder,TMP.name);
+        [~,F(i).ete_P] = get_airfoil_surface_pressure_data_from_file(file_name);
     end
-    file_name = fullfile(TMP.folder,TMP.name);
-    [~,F(i).ete_P] = get_airfoil_surface_pressure_data_from_file(file_name);
 
     F(i).ic_P = nan*F(i).primal_P;
     TMP = dir(fullfile(folder,folders{i},surface_pat{3}));
     if (isempty(TMP))
         warning('No ic-surface_forces.dat in folder: %s\n',folders{i})
-        continue
+    else
+        file_name = fullfile(TMP.folder,TMP.name);
+        [~,F(i).ic_P] = get_airfoil_surface_pressure_data_from_file(file_name);
     end
-    file_name = fullfile(TMP.folder,TMP.name);
-    [~,F(i).ic_P] = get_airfoil_surface_pressure_data_from_file(file_name);
 
     F(i).exact_P = nan*F(i).primal_P;
     TMP = dir(fullfile(folder,folders{i},surface_pat{4}));
     if (isempty(TMP))
         warning('No exact-surface_forces.dat in folder: %s\n',folders{i})
-        continue
+    else
+        file_name = fullfile(TMP.folder,TMP.name);
+        [~,F(i).exact_P] = get_airfoil_surface_pressure_data_from_file(file_name);
     end
-    file_name = fullfile(TMP.folder,TMP.name);
-    [~,F(i).exact_P] = get_airfoil_surface_pressure_data_from_file(file_name);
 end
 end
 
@@ -217,16 +227,16 @@ for i = 1:N_files
     TMP = dir(fullfile(folder,folders{i},history_pat{2}));
     if (isempty(TMP))
         warning('No ete-force_history.dat in folder: %s\n',folders{i})
-        continue
-    end
-    file_name = fullfile(TMP.folder,TMP.name);
-    [ete_CX,ete_CY,ete_CL,ete_CD] = ...
-        get_force_history_data_from_file(file_name,alpha);
-    for j = 1:size(ete_CX,1)
-        H(i).ete_CX(j,:) = ete_CX(j);
-        H(i).ete_CY(j,:) = ete_CY(j);
-        H(i).ete_CL(j,:) = ete_CL(j);
-        H(i).ete_CD(j,:) = ete_CD(j);
+    else
+        file_name = fullfile(TMP.folder,TMP.name);
+        [ete_CX,ete_CY,ete_CL,ete_CD] = ...
+            get_force_history_data_from_file(file_name,alpha);
+        for j = 1:size(ete_CX,1)
+            H(i).ete_CX(j,:) = ete_CX(j);
+            H(i).ete_CY(j,:) = ete_CY(j);
+            H(i).ete_CL(j,:) = ete_CL(j);
+            H(i).ete_CD(j,:) = ete_CD(j);
+        end
     end
 
     H(i).ic_CX = nan(max_ic,1);
@@ -236,16 +246,16 @@ for i = 1:N_files
     TMP = dir(fullfile(folder,folders{i},history_pat{3}));
     if (isempty(TMP))
         warning('No ic-force_history.dat in folder: %s\n',folders{i})
-        continue
-    end
-    file_name = fullfile(TMP.folder,TMP.name);
-    [ic_CX,ic_CY,ic_CL,ic_CD] = ...
-        get_force_history_data_from_file(file_name,alpha);
-    for j = 1:size(ic_CX,1)
-        H(i).ic_CX(j,:) = ic_CX(j);
-        H(i).ic_CY(j,:) = ic_CY(j);
-        H(i).ic_CL(j,:) = ic_CL(j);
-        H(i).ic_CD(j,:) = ic_CD(j);
+    else
+        file_name = fullfile(TMP.folder,TMP.name);
+        [ic_CX,ic_CY,ic_CL,ic_CD] = ...
+            get_force_history_data_from_file(file_name,alpha);
+        for j = 1:size(ic_CX,1)
+            H(i).ic_CX(j,:) = ic_CX(j);
+            H(i).ic_CY(j,:) = ic_CY(j);
+            H(i).ic_CL(j,:) = ic_CL(j);
+            H(i).ic_CD(j,:) = ic_CD(j);
+        end
     end
 
 
@@ -256,14 +266,14 @@ for i = 1:N_files
     TMP = dir(fullfile(folder,folders{i},history_pat{4}));
     if (isempty(TMP))
         warning('No exact-force_history.dat in folder: %s\n',folders{i})
-        continue
+    else
+        file_name = fullfile(TMP.folder,TMP.name);
+        [exact_CX,exact_CY,exact_CL,exact_CD] = ...
+            get_force_history_data_from_file(file_name,alpha);
+        H(i).exact_CX = exact_CX;
+        H(i).exact_CY = exact_CY;
+        H(i).exact_CL = exact_CL;
+        H(i).exact_CD = exact_CD;
     end
-    file_name = fullfile(TMP.folder,TMP.name);
-    [exact_CX,exact_CY,exact_CL,exact_CD] = ...
-        get_force_history_data_from_file(file_name,alpha);
-    H(i).exact_CX = exact_CX;
-    H(i).exact_CY = exact_CY;
-    H(i).exact_CL = exact_CL;
-    H(i).exact_CD = exact_CD;
 end
 end

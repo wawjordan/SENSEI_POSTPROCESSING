@@ -341,9 +341,14 @@ classdef kt_airfoil
         end
         function Cp = get_averaged_cp_on_segment(this,x1,y1,x2,y2,scale,use_curv)
             tol = 1e-8;
-            on_surface = this.on_airfoil(x1,y1,scale,tol) ...
-                && this.on_airfoil(x2,y2,scale,tol) ...
-                && use_curv;
+            point1_on_surface = this.on_airfoil(x1,y1,scale,tol);
+            point2_on_surface = this.on_airfoil(x2,y2,scale,tol);
+            if ~( point1_on_surface || point2_on_surface )
+                fprintf('off surface\n');
+            end
+            on_surface = point1_on_surface ...
+                      && point2_on_surface ...
+                      && use_curv;
             if on_surface
                 [t0,t1] = this.get_theta_from_z(x1,y1,x2,y2,scale);
                 pfun = @(theta) ( this.airfoil_pressure(this.cylinder_map(theta)) - this.pinf )./(0.5*this.rhoinf*this.vinf^2);
