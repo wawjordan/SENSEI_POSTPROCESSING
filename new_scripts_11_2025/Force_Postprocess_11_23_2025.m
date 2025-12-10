@@ -70,21 +70,27 @@ foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2025-12-05_11.19.3
 
 
 foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2025-12-02_17.52.48_VAR_REC_8_100_no_bc_IC_200_ur0-5'];% 25
-foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2025-12-04_11.10.22_VAR_REC_ALL_1000_no_bc_IC_200_ur0-5'];% 26
+foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2025-12-08_13.39.39_VAR_REC_ALL_1000_no_bc_IC_200_ur0-5'];% 26
 
 
 %% New compile (12d0c99f7af602e3eac64ad5bde538f3262efefb)
 foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2025-12-05_13.20.34_VAR_REC_1_100_yes_bc_IC_10_ur0-5_NEW'];% 27
+foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2025-12-05_18.06.19_VAR_REC_1_100_yes_bc_IC_10_ur0-5_NEW_10_iter'];% 28
+foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2025-12-08_13.32.09_VAR_REC_2_100_yes_bc_IC_10_ur0-5_NEW_10_iter'];% 29
+foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2025-12-09_13.43.19_ORDER_3_VAR_REC_1_100_yes_bc_IC_10_ur0-5_NEW_10_iter'];% 30
+foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2025-12-09_19.44.01_ORDER_3_VAR_REC_1_100_no_bc_IC_10_ur0-5_NEW_10_iter'];% 31
+foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_newer_2025-12-09_21.41.18_ORDER_3_VAR_REC_1_100_no_bc_IC_10_ur0-5_NEWER_10_iter'];% 32
+foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2025-12-10_10.50.20_ORDER_3_VAR_REC_1_100_no_bc_IC_10_ur0-5_NEW_10_iter_GEO4'];% 33
 
 foldernames1 = cellfun(@(str_b)strcat(DATA_DIR,str_b),foldernames1,UniformOutput=false);
 
-folder = foldernames1{17};
+folder = foldernames1{13};
 S = get_soln_data_from_directory(folder);
 G = get_grid_data_from_directory(folder);
 DATA1 = get_airfoil_force_data_from_directory_alt(folder,inputs.alpha,inputs.nskip,airfoil,inputs.rho_ref,inputs.p_ref,inputs.a_ref,false);
 % DATA2 = get_airfoil_force_data_from_directory_alt(folder,inputs.alpha,inputs.nskip,airfoil,inputs.rho_ref,inputs.p_ref,inputs.a_ref,true);
 
-folder = foldernames1{24};
+folder = foldernames1{26};
 S = get_soln_data_from_directory(folder);
 G = get_grid_data_from_directory(folder);
 DATA2 = get_airfoil_force_data_from_directory_alt(folder,inputs.alpha,inputs.nskip,airfoil,inputs.rho_ref,inputs.p_ref,inputs.a_ref,false);
@@ -92,7 +98,7 @@ DATA2 = get_airfoil_force_data_from_directory_alt(folder,inputs.alpha,inputs.nsk
 N1 = [DATA1.F(:).N];
 N2 = [DATA2.F(:).N];
 
-var = 'CD';
+var = 'CL';
 err_CL_primal_1 = abs([DATA1.H(:).(['primal_',var])]-airfoil.(var));
 err_CL_primal_2 = abs([DATA2.H(:).(['primal_',var])]-airfoil.(var));
 
@@ -104,16 +110,33 @@ ind = 5;
 %% figure 1: Cp Error (with respect to discrete exact Cp)
 figure(1)
 hold on
-plot(DATA1.F(ind).exact_lin_CP   - DATA1.F(ind).exact_ana_CP,'k')
-plot(DATA1.F(ind).exact_sim_CP   - DATA1.F(ind).exact_ana_CP,'k--')
-plot(DATA1.F(ind).primal_CP   - DATA1.F(ind).exact_ana_CP,'r')
-plot(DATA1.F(ind).ete_CP(:,1) - DATA1.F(ind).exact_ana_CP,'g')
-plot(DATA1.F(ind).ete_CP(:,end) - DATA1.F(ind).exact_ana_CP,'m')
+% plot(DATA1.F(ind).exact_lin_CP   - DATA1.F(ind).exact_ana_CP,'k')
+% plot(DATA1.F(ind).exact_sim_CP   - DATA1.F(ind).exact_ana_CP,'k--')
+% plot(DATA1.F(ind).primal_CP      - DATA1.F(ind).exact_ana_CP,'r')
+% plot(DATA1.F(ind).ete_CP(:,1)    - DATA1.F(ind).exact_ana_CP,'g')
+% plot(DATA1.F(ind).ete_CP(:,end)  - DATA1.F(ind).exact_ana_CP,'m')
+% 
+% plot(DATA2.F(ind).ete_CP(:,1)    - DATA2.F(ind).exact_ana_CP,'g--')
+% plot(DATA2.F(ind).ete_CP(:,end)  - DATA2.F(ind).exact_ana_CP,'m--')
+% 
+% legend({'ex\_lin','ex\_sim','primal','ETE'})
+% xlabel('i index')
+% ylabel('Cp error')
+sz = numel(DATA1.F(ind).XC)/2;
+top = 1:sz;
+bot = sz+1:2*sz;
 
-plot(DATA2.F(ind).ete_CP(:,1) - DATA2.F(ind).exact_ana_CP,'g--')
-plot(DATA2.F(ind).ete_CP(:,end) - DATA2.F(ind).exact_ana_CP,'m--')
+side = top;
+% plot(  DATA1.F(ind).XC(side), DATA1.F(ind).exact_lin_CP(side)   - DATA1.F(ind).exact_ana_CP(side),'k')
+% plot(  DATA1.F(ind).XC(side), DATA1.F(ind).exact_sim_CP(side)   - DATA1.F(ind).exact_ana_CP(side),'k--')
+plot(  DATA1.F(ind).XC(side), ( DATA1.F(ind).primal_CP(side)      - DATA1.F(ind).exact_ana_CP(side) ),'r')
+plot(  DATA1.F(ind).XC(side), ( DATA1.F(ind).ete_CP(side,1)    - DATA1.F(ind).exact_ana_CP(side) ),'g')
+plot(  DATA1.F(ind).XC(side), ( DATA1.F(ind).ete_CP(side,end)  - DATA1.F(ind).exact_ana_CP(side) ),'m')
 
-legend({'ex\_lin','ex\_sim','primal','ETE'})
+plot(  DATA2.F(ind).XC(side), ( DATA2.F(ind).ete_CP(side,1)    - DATA2.F(ind).exact_ana_CP(side) ),'g--')
+plot(  DATA2.F(ind).XC(side), ( DATA2.F(ind).ete_CP(side,end)  - DATA2.F(ind).exact_ana_CP(side) ),'m--')
+% set(gca,'YScale','log')
+legend({'primal','ETE'})
 xlabel('i index')
 ylabel('Cp error')
 
@@ -122,12 +145,18 @@ figure(2)
 hold on
 plot(N1,err_CL_primal_1(1,:),'r-s')
 plot(N1,err_CL_ete_1(1,:),'b-^')
-for i = 1:size(err_CL_ete_1,1)
-    plot(N1,err_CL_ete_1(i,:),'g-v')
-end
-plot(N1,err_CL_ete_1(end,:),'m-o')
+% for i = 1:size(err_CL_ete_1,1)
+%     plot(N1,err_CL_ete_1(i,:),'r-')
+% end
+plot(N1,err_CL_ete_1(end,:),'b--^')
 
-plot(N2,err_CL_ete_2(end,:),'c-o')
+
+plot(N1,err_CL_ete_2(1,:),'g-s')
+% for i = 1:size(err_CL_ete_2,1)
+%     plot(N1,err_CL_ete_2(i,:),'b-')
+% end
+plot(N1,err_CL_ete_2(end,:),'g--s')
+
 
 set(gca,'Yscale','log')
 set(gca,'Xscale','log')

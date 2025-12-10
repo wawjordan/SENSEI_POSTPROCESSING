@@ -55,7 +55,10 @@ foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2025-12-08_13.39.3
 foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2025-12-05_13.20.34_VAR_REC_1_100_yes_bc_IC_10_ur0-5_NEW'];% 27
 foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2025-12-05_18.06.19_VAR_REC_1_100_yes_bc_IC_10_ur0-5_NEW_10_iter'];% 28
 foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2025-12-08_13.32.09_VAR_REC_2_100_yes_bc_IC_10_ur0-5_NEW_10_iter'];% 29
-
+foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2025-12-09_13.43.19_ORDER_3_VAR_REC_1_100_yes_bc_IC_10_ur0-5_NEW_10_iter'];% 30
+foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2025-12-09_19.44.01_ORDER_3_VAR_REC_1_100_no_bc_IC_10_ur0-5_NEW_10_iter'];% 31
+foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_newer_2025-12-09_21.41.18_ORDER_3_VAR_REC_1_100_no_bc_IC_10_ur0-5_NEWER_10_iter'];% 32
+foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2025-12-10_10.50.20_ORDER_3_VAR_REC_1_100_no_bc_IC_10_ur0-5_NEW_10_iter_GEO4'];% 33
 
 
 foldernames1 = cellfun(@(str_b)strcat(DATA_DIR,str_b),foldernames1,UniformOutput=false);
@@ -87,10 +90,10 @@ foldernames1 = cellfun(@(str_b)strcat(DATA_DIR,str_b),foldernames1,UniformOutput
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% variational (8 layers) vs kexact w/constraints
-% foldernames = foldernames1([23,13,23]); iter_select = {[],[10],[10]}; tag_fmt = { '', '(k-exact)', '(variational [8], 1000 iter)' };
+% foldernames = foldernames1([22,13,22]); iter_select = {[],[0:10],[0:10]}; tag_fmt = { '', '(k-exact)', '(variational [8], 100 iter)' };
 
 %% variational (all layers) vs kexact w/constraints
-foldernames = foldernames1([26,26,26]); iter_select = {[],[0],[1:5:200]}; tag_fmt = { '', '(variational [all], 1000 iter (10))', '(variational [all], 1000 iter (200))' };
+% foldernames = foldernames1([26,26,26]); iter_select = {[],[0],[1:5:200]}; tag_fmt = { '', '(variational [all], 1000 iter (10))', '(variational [all], 1000 iter (200))' };
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -99,11 +102,18 @@ foldernames = foldernames1([26,26,26]); iter_select = {[],[0],[1:5:200]}; tag_fm
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% variational (8 layers w/o constraints) vs variational (8 w/constraints)
-% foldernames = foldernames1([20,20,23]); iter_select = {[],[0],[0]}; tag_fmt = { '', '(variational [8], no constraints)', '(variational [8], constraints)' };
+foldernames = foldernames1([20,20,23]); iter_select = {[],[0:10],[0:10]}; tag_fmt = { '', '(variational [8], no constraints)', '(variational [8], constraints)' };
 
+% foldernames = foldernames1([30,30,28]); iter_select = {[],[],[0:10]}; tag_fmt = { '', '(r=3)', '(r=4)' };
+% foldernames = foldernames1([31,31,26]); iter_select = {[],[],[0:200]}; tag_fmt = { '', '(r=3)', '(r=4)' };
+% foldernames = foldernames1([30,31,30]); iter_select = {[],[0:2],[0:2]}; tag_fmt = { '', '(r=3)', '(r=3 w/constraints)' };
+
+% foldernames = foldernames1([31,31,32]); iter_select = {[],[0],[0]}; tag_fmt = { '', '(OLD)', '(NEW)' };
+% foldernames = foldernames1([32,32,33]); iter_select = {[],[0],[0]}; tag_fmt = { '', '(2)', '(4)' };
+% 
 var_select    = [ 3, 4, 4 ];
-var_mask      = {[ 0, 1, 0, 0 ]};
-norm_select   = [1];
+var_mask      = {[ 0, 0, 0, 1 ]};
+norm_select   = [2];
 layer_select  = {[]};
 line_fmt      = { '-', '--', ':' };
 color_spec    = {lines(4)};
@@ -115,7 +125,7 @@ legend_flag   = true;
 % foldernames = foldernames1([21,21,22,23]);
 % var_select    = [ 3, 4, 4, 4 ];
 % var_mask      = {[ 1, 1, 1, 1 ]};
-% norm_select   = [1];
+% norm_select   = [2];
 % iter_select   = {[],[],[],[]};
 % layer_select  = {[]};
 % line_fmt      = { '-', '--', '-.', ':' };
@@ -129,7 +139,7 @@ legend_flag   = true;
 % foldernames = foldernames1([17,18,19,20]);
 % var_select    = [ 4, 4, 4, 4 ];
 % var_mask      = {[ 1, 1, 1, 1 ]};
-% norm_select   = [2];
+% norm_select   = [3];
 % iter_select   = {[],[],[],[]};
 % layer_select  = {[]};
 % line_fmt      = { '-', '--', '-.', ':' };
