@@ -73,7 +73,7 @@ for n = 1:nvars
                     end
                 end
             end
-        end         
+        end
     elseif ZONE.VARLOC(n) == 1 % cell-centered
         cell_var_cnt = cell_var_cnt + 1;
         if jmax > 2
