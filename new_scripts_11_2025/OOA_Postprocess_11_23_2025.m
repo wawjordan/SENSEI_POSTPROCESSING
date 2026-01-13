@@ -90,7 +90,7 @@ foldernames1 = cellfun(@(str_b)strcat(DATA_DIR,str_b),foldernames1,UniformOutput
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% variational (8 layers) vs kexact w/constraints
-% foldernames = foldernames1([22,13,22]); iter_select = {[],[0:10],[0:10]}; tag_fmt = { '', '(k-exact)', '(variational [8], 100 iter)' };
+foldernames = foldernames1([13,13,20]); iter_select = {[],[0],[0]}; tag_fmt = { '', '(Old Rec.)', '(New Rec.)' };
 
 %% variational (all layers) vs kexact w/constraints
 % foldernames = foldernames1([26,26,26]); iter_select = {[],[0],[1:5:200]}; tag_fmt = { '', '(variational [all], 1000 iter (10))', '(variational [all], 1000 iter (200))' };
@@ -102,7 +102,7 @@ foldernames1 = cellfun(@(str_b)strcat(DATA_DIR,str_b),foldernames1,UniformOutput
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% variational (8 layers w/o constraints) vs variational (8 w/constraints)
-foldernames = foldernames1([20,20,23]); iter_select = {[],[0:10],[0:10]}; tag_fmt = { '', '(variational [8], no constraints)', '(variational [8], constraints)' };
+% foldernames = foldernames1([20,20,23]); iter_select = {[],[0:10],[0:10]}; tag_fmt = { '', '(variational [8], no constraints)', '(variational [8], constraints)' };
 
 % foldernames = foldernames1([30,30,28]); iter_select = {[],[],[0:10]}; tag_fmt = { '', '(r=3)', '(r=4)' };
 % foldernames = foldernames1([31,31,26]); iter_select = {[],[],[0:200]}; tag_fmt = { '', '(r=3)', '(r=4)' };
@@ -112,10 +112,10 @@ foldernames = foldernames1([20,20,23]); iter_select = {[],[0:10],[0:10]}; tag_fm
 % foldernames = foldernames1([32,32,33]); iter_select = {[],[0],[0]}; tag_fmt = { '', '(2)', '(4)' };
 % 
 var_select    = [ 3, 4, 4 ];
-var_mask      = {[ 0, 0, 0, 1 ]};
-norm_select   = [2];
+var_mask      = {[ 0, 1, 0, 1 ]};
+norm_select   = [1];
 layer_select  = {[]};
-line_fmt      = { '-', '--', ':' };
+line_fmt      = { '-', ':', '--' };
 color_spec    = {lines(4)};
 legend_flag   = true;
 
@@ -159,18 +159,25 @@ legend_flag   = true;
 % color_spec    = {lines(4)};
 % tag_fmt       = { '' };
 % legend_flag   = true;
-post_plot_commands = {"set(hfig1.Children(4),'Ylim',[1e-10,1e-3]);",...
-                      "yticks(hfig1.Children(4),10.^(-10:1:-3));",  ...
+post_plot_commands = {"set(hfig1.Children(4),'Ylim',[1e-11,1e-3]);",...
+                      "yticks(hfig1.Children(4),10.^(-11:1:-3));",  ...
                       "set(hfig1.Children(4),'Xlim',[10,1000])",    ...
                       "set(hfig1.Children(3),'Location','southwest');",...
                       "set(hfig1.Children(2),'Ylim',[0,5]);",...
                       "set(hfig1.Children(2),'Xlim',[10,1000])",...
                       "set(hfig1.Children(1),'Visible','off');"};
-print_ERR=false;
-print_OOA=false;
-target_folder = '';
-err_file = 'ERR.png';
-ooa_file = 'OOA.png';
+% post_plot_commands = {"set(hfig1.Children(4),'Ylim',[1e-5,1e0]);",...
+%                       "yticks(hfig1.Children(4),10.^(-5:1:0));",  ...
+%                       "set(hfig1.Children(4),'Xlim',[10,1000])",    ...
+%                       "set(hfig1.Children(3),'Location','southwest');",...
+%                       "set(hfig1.Children(2),'Ylim',[0,5]);",...
+%                       "set(hfig1.Children(2),'Xlim',[10,1000])",...
+%                       "set(hfig1.Children(1),'Visible','off');"};
+print_ERR=true;
+print_OOA=true;
+target_folder = 'C:\Users\wajordan\Desktop\CCAS_Annual_Review_Plots\OOA\L1_NORM';
+err_file = 'ERR_L1_U_and_P_only_0_IC.png';
+ooa_file = 'OOA_L1_U_and_P_only_0_IC.png';
 
 [hfig1,DE_test] = parse_and_plot_new2(dim,r_fac, foldernames,          ...
                                                           var_select,   ...

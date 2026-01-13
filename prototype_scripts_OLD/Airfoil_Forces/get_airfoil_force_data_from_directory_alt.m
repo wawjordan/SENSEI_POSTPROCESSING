@@ -127,7 +127,7 @@ for i = 1:N_files
     folders{i} = replace(TMP(i).folder,{folder,surface_pat{1}},{'',''});
     % fprintf('found folder: %s\n',folders{i});
     F(i).N  = cellfun(@str2double,regexp(folders{i},'\d*','match'));
-    F(i).N  = sqrt(prod(F(i).N));
+    F(i).N  = sqrt(prod(F(i).N-1));
     file_name = fullfile(TMP(i).folder,TMP(i).name);
     [F(i).XC,F(i).primal_P] = get_airfoil_surface_pressure_data_from_file(file_name);
 end
@@ -196,7 +196,7 @@ for i = 1:N_files
     folders{i} = replace(TMP(i).folder,{folder,history_pat{1}},{'',''});
     % fprintf('found folder: %s\n',folders{i});
     H(i).N  = cellfun(@str2double,regexp(folders{i},'\d*','match'));
-    H(i).N  = sqrt(prod(H(i).N));
+    H(i).N  = sqrt(prod(H(i).N-1));
     file_name = fullfile(TMP(i).folder,TMP(i).name);
     H(i).primal_CX = nan(1,1);
     H(i).primal_CY = nan(1,1);

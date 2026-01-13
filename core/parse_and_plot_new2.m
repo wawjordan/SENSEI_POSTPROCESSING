@@ -110,11 +110,22 @@ norm_fmt = {'Norm: $L_{1}$','Norm: $L_{2}$','Norm: $L_{\infty}$'};
 base_legend_text_primitive = {'$\\rho$ %s','$u$ %s','$v$ %s','$p$ %s'};
 base_legend_text_conserved = {'$\\rho{\\,\\,\\,}$ %s','$\\rho{u}$ %s','$\\rho{v}$ %s','$\\rho{e}$ %s'};
 
+tmp_mask = sum(cell2mat(var_mask.'),1)>0;
+N_plot_var = sum(tmp_mask);
+
 %% string stuff
 if legend_flag
     i = 1;
     if (vars(i) == 1)||(vars(i) == 3)||(vars(i) == 4)
         legend_text = {'$\rho$','$u$','$v$','$p$'};
+        legend_text = legend_text(tmp_mask);
+        if N_plot_var>1
+            if N_plot_var<N
+                for j = 1:N-N_plot_var
+                    legend_text = [legend_text,{''}];
+                end
+            end
+        end
     elseif (vars(i) == 2)||(vars(i) == 5)||(vars(i) == 6)
         legend_text = {'$\rho$','$\rho{u}$','$\rho{v}$','$\rho{e}$'};
     end
@@ -170,7 +181,15 @@ hfig = stdplot(1);
 subplot(1,2,1)
 hold on
 if legend_flag
-    p = plot_all_vars_legend_flag(gca);
+    p = plot_all_vars_legend_flag(gca,tmp_mask);
+    if (sum(tmp_mask)>1)
+        if N_plot_var<N
+            for j = 1:N-N_plot_var
+                ptmp = plot(gca,nan,nan,'LineStyle','none');
+                p = [p,{ptmp}];
+            end
+        end
+    end
     ptmp = plot_all_vars_legend_flag_line(gca,fmt);
     p = [p,ptmp];
 end
@@ -188,7 +207,11 @@ if (all(norms==norms(1)))
     label_norms(gca,norm_fmt{norms(1)})
 end
 if legend_flag
-    leg1 = legend([p{:}],legend_text,'Interpreter','latex','Location','southwest','NumColumns',2);
+    if ( sum(tmp_mask)>1)
+        leg1 = legend([p{:}],legend_text,'Interpreter','latex','Location','southwest','NumColumns',2);
+    else
+        leg1 = legend([p{:}],legend_text,'Interpreter','latex','Location','southwest','NumColumns',1);
+    end
     leg1.ItemTokenSize = [18,0];
 else
     leg1 = legend(legend_text,'Interpreter','latex','Location','southwest','NumColumns',N);
@@ -198,7 +221,15 @@ end
 subplot(1,2,2)
 hold on
 if legend_flag
-    p = plot_all_vars_legend_flag(gca);
+    p = plot_all_vars_legend_flag(gca,tmp_mask);
+    if (sum(tmp_mask)>1)
+        if N_plot_var<N
+            for j = 1:N-N_plot_var
+                ptmp = plot(gca,nan,nan,'LineStyle','none');
+                p = [p,{ptmp}];
+            end
+        end
+    end
     ptmp = plot_all_vars_legend_flag_line(gca,fmt);
     p = [p,ptmp];
 end
@@ -248,19 +279,29 @@ text(ax,xpos,ypos,txt,'Interpreter','latex','Units','Normalized',...
 
 end
 
-function p = plot_all_vars_legend_flag(ax)
+function p = plot_all_vars_legend_flag(ax,mask)
 hold on
 vars = [1,2,3,5];
 colors = lines(length(vars));
 markers = {'o','s','d','^'};
+cnt = 0;
 for i = 1:length(vars)
-    p{i} = plot(ax,nan,nan,'color',colors(i,:));
+    if ~mask(i)
+        continue
+    end
+    cnt = cnt + 1;
+    p{cnt} = plot(ax,nan,nan,'color',colors(i,:));
 end
+cnt = 0;
 for i = 1:length(vars)
-    p{i}.Marker=markers{i};
-    p{i}.MarkerEdgeColor=colors(i,:);
-    p{i}.MarkerSize=3;
-    p{i}.LineStyle='none';
+    if ~mask(i)
+        continue
+    end
+    cnt = cnt + 1;
+    p{cnt}.Marker=markers{i};
+    p{cnt}.MarkerEdgeColor=colors(i,:);
+    p{cnt}.MarkerSize=3;
+    p{cnt}.LineStyle='none';
 end
 end
 
@@ -768,10 +809,10 @@ exportgraphics(hax,filename,'Resolution',600)
 end
 
 function hfig = stdplot(i)
-% fontsize  = 6;%14;
-% linewidth = 1;%2;
-fontsize  = 20;
-linewidth = 2;
+fontsize  = 6;%14;
+linewidth = 1;%2;
+% fontsize  = 20;
+% linewidth = 2;
 hfig=figure(i);
 clf(hfig);
 dim = [7.5 5.5 6.25 2.5];
