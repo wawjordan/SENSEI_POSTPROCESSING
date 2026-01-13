@@ -14,7 +14,7 @@ dim   = 2;
 r_fac = 2;
 
 %% for use with 'parse_and_plot_new2'
-DATA_DIR='C:\Users\wajordan\Desktop\';
+DATA_DIR='C:\Users\wajordan\Desktop\CASES\';
 foldernames1 = {             'ALPHA_0_JOUKOWSKI_C_GRID_curved_2025-11-23_13.28.07_K_EXACT'};% 1
 foldernames1 = [foldernames1,'ALPHA_0_JOUKOWSKI_C_GRID_curved_2025-11-23_12.47.49_VAR_REC_8_100'];% 2
 foldernames1 = [foldernames1,'ALPHA_0_JOUKOWSKI_C_GRID_curved_2025-11-23_14.30.04_VAR_REC_8_1000'];% 3
@@ -90,7 +90,7 @@ foldernames1 = cellfun(@(str_b)strcat(DATA_DIR,str_b),foldernames1,UniformOutput
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% variational (8 layers) vs kexact w/constraints
-foldernames = foldernames1([13,13,20]); iter_select = {[],[0],[0]}; tag_fmt = { '', '(Old Rec.)', '(New Rec.)' };
+foldernames = foldernames1([13,13,20]); iter_select = {[],[],[]}; tag_fmt = { '', '(Old Rec.)', '(New Rec.)' };
 
 %% variational (all layers) vs kexact w/constraints
 % foldernames = foldernames1([26,26,26]); iter_select = {[],[0],[1:5:200]}; tag_fmt = { '', '(variational [all], 1000 iter (10))', '(variational [all], 1000 iter (200))' };
@@ -113,7 +113,7 @@ foldernames = foldernames1([13,13,20]); iter_select = {[],[0],[0]}; tag_fmt = { 
 % 
 var_select    = [ 3, 4, 4 ];
 var_mask      = {[ 0, 1, 0, 1 ]};
-norm_select   = [1];
+norm_select   = [3];
 layer_select  = {[]};
 line_fmt      = { '-', ':', '--' };
 color_spec    = {lines(4)};

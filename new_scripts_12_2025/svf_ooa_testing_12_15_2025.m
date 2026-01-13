@@ -14,7 +14,7 @@ dim   = 2;
 r_fac = 2;
 
 %% for use with 'parse_and_plot_new2'
-DATA_DIR='C:\Users\wajordan\Desktop\';
+DATA_DIR='C:\Users\wajordan\Desktop\CASES\';
 foldernames1 = {};
 foldernames1 = [foldernames1,'SVF_2025-12-15_15.31.44_KEXACT_EXHO_EVAL=T_REC=T'];% 1
 foldernames1 = [foldernames1,'SVF_2025-12-15_15.37.24_VAR_REC_4_20_EXHO_EVAL=T_REC=T'];% 2
@@ -39,15 +39,28 @@ foldernames1 = [foldernames1,'SVF_2025-12-18_11.36.46_VAR_REC_1_1000_EXHO_EVAL=T
 foldernames1 = [foldernames1,'SVF_2025-12-18_11.51.30_KEXACT_EXHO_EVAL=T_REC=T_200IC_yes_bc_2575a92'];% 19
 foldernames1 = [foldernames1,'SVF_2025-12-18_13.49.39_KEXACT_EXHO_EVAL=T_REC=T_200IC_yes_bc_geo4_2575a92'];% 20
 foldernames1 = [foldernames1,'SVF_2025-12-18_14.06.56_KEXACT3_EXHO_EVAL=T_REC=T_200IC_yes_bc_2575a92'];% 21
+foldernames1 = [foldernames1,'SVF_2026-01-13_15.50.13_KEXACT2_EXHO_EVAL=T_REC=T_200IC_no_bc_2575a92'];% 22
+foldernames1 = [foldernames1,'SVF_2026-01-13_16.33.06_KEXACT5_EXHO_EVAL=T_REC=T_200IC_yes_bc_2575a92'];% 23
+foldernames1 = [foldernames1,'SVF_2026-01-13_16.46.43_KEXACT6_EXHO_EVAL=T_REC=T_200IC_yes_bc_2575a92'];% 24
 
+foldernames1 = [foldernames1,'SVF_2026-01-13_16.57.23_KEXACT5_EXHO_EVAL=T_REC=T_200IC_no_bc_2575a92'];% 25
+foldernames1 = [foldernames1,'SVF_2026-01-13_17.12.04_KEXACT5_EXHO_EVAL=T_REC=T_200IC_no_bc_2575a92_quad=6'];% 26
+foldernames1 = [foldernames1,'SVF_2026-01-13_17.20.47_KEXACT5_EXHO_EVAL=T_REC=T_200IC_no_bc_geo4_2575a92_quad=6'];% 27
+foldernames1 = [foldernames1,'SVF_2026-01-13_17.36.20_KEXACT5_EXHO_EVAL=T_REC=T_200IC_yes_bc_geo4_2575a92_quad=6'];% 28
+foldernames1 = [foldernames1,'SVF_2026-01-13_17.47.18_KEXACT5_EXHO_EVAL=T_REC=T_200IC_yes_bc_geo4_2575a92_quad=6_subsonic'];% 29
+foldernames1 = [foldernames1,'SVF_2026-01-13_17.52.42_KEXACT5_EXHO_EVAL=T_REC=T_200IC_no_bc_geo4_2575a92_quad=6_subsonic'];% 30
+
+foldernames1 = [foldernames1,'SVF_2026-01-13_16.25.19_KEXACT2_EXHO_EVAL=T_REC=T_200IC_no_bc_2575a92_subsonic'];% 30
 
 foldernames1 = cellfun(@(str_b)strcat(DATA_DIR,str_b),foldernames1,UniformOutput=false);
 
-foldernames = foldernames1([13,19,21]);
-var_select    = [ 4, 4, 4 ];
+% foldernames = foldernames1([13,19,21]);
+% foldernames = foldernames1([19,21,22]);
+foldernames = foldernames1([29,29,30]);
+var_select    = [ 3, 4, 4 ];
 var_mask      = {[ 1, 1, 1, 1 ]};
 norm_select   = [3];
-iter_select   = {[]};
+iter_select   = {[],[],[0:10:50]};
 layer_select  = {[]};
 line_fmt      = { '-', ':', '--' };
 color_spec    = {lines(4)};
