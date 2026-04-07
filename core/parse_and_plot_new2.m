@@ -701,22 +701,35 @@ tmp = sscanf(line,'%f');
 N_eqns = length(tmp);
 
 % allocate
-dat = zeros(N_eqns,3,N_iterations+1);
+dat = nan(N_eqns,3,N_iterations+1);
 
 % rewind
 frewind(fid);
 % read the first line again
 fgetl(fid);
+
 % now loop
 for j = 0:N_iterations
-    fgetl(fid); % (iteration) not needed
+    line = fgetl(fid); % (iteration) not needed
+    if (line==-1)
+        warning('encountered end of file marker')
+        break
+    end
     line = fgetl(fid); % (grid size, 1D grid size, time)
+    if (line==-1)
+        warning('encountered end of file marker')
+        break
+    end
     if has_t
         tmp = sscanf(line,'%f');
         t(j+1) = tmp(3);
     end
     for i = 1:3 % norms (L1, L2, L_inf)
         line = fgetl(fid);
+        if (line==-1)
+            warning('encountered end of file marker')
+            break
+        end
         tmp = sscanf(line,'%f');
         dat(:,i,j+1) = tmp;
     end

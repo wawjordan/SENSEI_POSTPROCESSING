@@ -142,7 +142,7 @@ foldernames = foldernames1([13,13,35]); iter_select = {[],[0],[0]}; tag_fmt = { 
 % color_spec    = {lines(4)};
 % legend_flag   = true;
 
-foldernames = foldernames1([44,42,44]); iter_select = {[],[200],[200]}; tag_fmt = { '', '(k-exact)', '(cweno)' };
+foldernames = foldernames1([44,44,45]); iter_select = {[],[150],[150]}; tag_fmt = { '', '(k-exact)', '(cweno)' };
 var_select    = [ 3, 4, 4 ];
 var_mask      = {[ 1, 1, 1, 1 ]};
 norm_select   = [1];
@@ -150,15 +150,6 @@ layer_select  = {[]};
 line_fmt      = { '-', '-.', '--' };
 color_spec    = {lines(4)};
 legend_flag   = true;
-
-% foldernames = foldernames1([43]); iter_select = {[0:10:200]}; tag_fmt = { '' };
-% var_select    = [ 2 ];
-% var_mask      = {[ 1, 1, 1, 1 ]};
-% norm_select   = [3];
-% layer_select  = {[]};
-% line_fmt      = { '-' };
-% color_spec    = {lines(4)};
-% legend_flag   = true;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
