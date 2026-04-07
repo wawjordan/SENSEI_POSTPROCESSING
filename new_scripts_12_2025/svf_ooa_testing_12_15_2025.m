@@ -52,11 +52,12 @@ foldernames1 = [foldernames1,'SVF_2026-01-13_17.52.42_KEXACT5_EXHO_EVAL=T_REC=T_
 
 foldernames1 = [foldernames1,'SVF_2026-01-13_16.25.19_KEXACT2_EXHO_EVAL=T_REC=T_200IC_no_bc_2575a92_subsonic'];% 30
 
+
 foldernames1 = cellfun(@(str_b)strcat(DATA_DIR,str_b),foldernames1,UniformOutput=false);
 
 % foldernames = foldernames1([13,19,21]);
 % foldernames = foldernames1([19,21,22]);
-foldernames = foldernames1([29,29,30]);
+foldernames = foldernames1([19,19,19]);
 var_select    = [ 3, 4, 4 ];
 var_mask      = {[ 1, 1, 1, 1 ]};
 norm_select   = [3];

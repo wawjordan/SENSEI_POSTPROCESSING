@@ -63,112 +63,18 @@ foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2025-12-10_10.50.2
 foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2026-01-15_02.00.10_CURVED_P4_q6_q6_hoex_TT_BC_VARLAY2_ITER2000_IC10'];% 34
 foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2026-01-15_03.10.03_CURVED_P4_q6_q6_hoex_TT_BC_VARLAY8_ITER2000_IC10'];% 35
 
-
-foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2026-02-13_12.01.06_ORDER_4_bc_IC_10_100_iter_GEO4'];% 36
-foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_limited_2026-02-13_12.00.09_ORDER_4_bc_IC_10_100_iter_GEO4'];% 37
-
 foldernames1 = cellfun(@(str_b)strcat(DATA_DIR,str_b),foldernames1,UniformOutput=false);
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% variational (8 layers) vs kexact w/o/constraints
-% foldernames = foldernames1([20,9,20]); iter_select = {[],[10],[10]}; tag_fmt = { '', '(k-exact)', '(variational [8], 1000 iter)' };
-
-%% variational (all layers) vs kexact w/o/constraints
-% foldernames = foldernames1([15,9,15]); iter_select = {[],[10],[10]}; tag_fmt = { '', '(k-exact)', '(variational [all], 1000 iter)' };
-
-
-%% variational (1 v 8 layers) w/constraints
-% foldernames = foldernames1([24,24,22]); iter_select = {[],[10],[10]}; tag_fmt = { '', '(variational [1])', '(variational [8])' };
-
-
-
-% foldernames = foldernames1([13,13,24]); iter_select = {[],[0],[0]}; tag_fmt = { '', '(k-exact)', '(variational [1])' };
-
-% foldernames = foldernames1([17,17,24]); iter_select = {[],[10],[10]}; tag_fmt = { '', '(no constraints)', '(yes constraints)' };
-
-% foldernames = foldernames1([17,8,17]); iter_select = {[],[0],[0]}; tag_fmt = { '', '(k-exact)', '(variational [1])' };
-
-
-% foldernames = foldernames1([24,24,27]); iter_select = {[],[0:10],[0:10]}; tag_fmt = { '', '(OLD)', '(NEW)' };
-
-%% variational (1 v 2 layers) New compile
-% foldernames = foldernames1([28,28,29]); iter_select = {[],[1],[1]}; tag_fmt = { '', '(1)', '(2)' };
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% variational (8 layers) vs kexact w/constraints
-foldernames = foldernames1([13,13,35]); iter_select = {[],[0],[0]}; tag_fmt = { '', '(Old Rec.)', '(New Rec.)' };
-
-%% variational (all layers) vs kexact w/constraints
-% foldernames = foldernames1([26,26,26]); iter_select = {[],[0],[1:5:200]}; tag_fmt = { '', '(variational [all], 1000 iter (10))', '(variational [all], 1000 iter (200))' };
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% variational (8 layers) vs variational (all) w/constraints [200 IC]
-% foldernames = foldernames1([25,25,25]); iter_select = {[],[0],[10]}; tag_fmt = { '', '(variational [8], 100 iter)', '(variational [8], 100 iter, 200 IC)' };
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% variational (8 layers w/o constraints) vs variational (8 w/constraints)
-% foldernames = foldernames1([20,20,23]); iter_select = {[],[0:10],[0:10]}; tag_fmt = { '', '(variational [8], no constraints)', '(variational [8], constraints)' };
-
-% foldernames = foldernames1([30,30,28]); iter_select = {[],[],[0:10]}; tag_fmt = { '', '(r=3)', '(r=4)' };
-% foldernames = foldernames1([31,31,26]); iter_select = {[],[],[0:200]}; tag_fmt = { '', '(r=3)', '(r=4)' };
-% foldernames = foldernames1([30,31,30]); iter_select = {[],[0:2],[0:2]}; tag_fmt = { '', '(r=3)', '(r=3 w/constraints)' };
-
-% foldernames = foldernames1([31,31,32]); iter_select = {[],[0],[0]}; tag_fmt = { '', '(OLD)', '(NEW)' };
-% foldernames = foldernames1([32,32,33]); iter_select = {[],[0],[0]}; tag_fmt = { '', '(2)', '(4)' };
-% 
-
-% foldernames = foldernames1([35,35]); iter_select = {[],[]}; tag_fmt = { '' };
-
-foldernames = foldernames1([37,36,37]); iter_select = {[],[0],[0]}; tag_fmt = { '', '(unlimited)', '(limited)' };
+foldernames = foldernames1([13,13,35]); tag_fmt = { '', '(Old Rec.)', '(New Rec.)' };
 var_select    = [ 3, 4, 4 ];
 var_mask      = {[ 1, 1, 1, 1 ]};
-norm_select   = [2];
+norm_select   = [1];
 layer_select  = {[]};
-line_fmt      = { '-', '-.', '--' };
+line_fmt      = { '-', ':', '--' };
 color_spec    = {lines(4)};
 legend_flag   = true;
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Effect of num iterations on var rec (8 layers)
-% foldernames = foldernames1([21,21,22,23]);
-% var_select    = [ 3, 4, 4, 4 ];
-% var_mask      = {[ 1, 1, 1, 1 ]};
-% norm_select   = [2];
-% iter_select   = {[],[],[],[]};
-% layer_select  = {[]};
-% line_fmt      = { '-', '--', '-.', ':' };
-% % color_spec    = {turbo(1),jet(1),hsv(1),lines(1)};
-% color_spec    = {lines(4)};
-% tag_fmt       = { '', '(variational [8], 10 iter)', '(variational [8], 100 iter)', '(variational [8], 1000 iter)' };
-% legend_flag   = true;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Effect of num layers on var rec (1000 iter)
-% foldernames = foldernames1([17,18,19,20]);
-% var_select    = [ 4, 4, 4, 4 ];
-% var_mask      = {[ 1, 1, 1, 1 ]};
-% norm_select   = [3];
-% iter_select   = {[],[],[],[]};
-% layer_select  = {[]};
-% line_fmt      = { '-', '--', '-.', ':' };
-% color_spec    = {lines(4)};
-% tag_fmt       = { '(variational [1])', '(variational [2])', '(variational [4])', '(variational [8])' };
-% legend_flag   = true;
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% foldernames = foldernames1([1,2]);
-% var_select    = [ 6, 6 ];
-% var_mask      = {[ 1, 1, 1, 1 ]};
-% norm_select   = [2];
-% iter_select   = {[]};
-% layer_select  = {[]};
-% line_fmt      = { '-', '--' };
-% color_spec    = {lines(4)};
-% tag_fmt       = { '' };
-% legend_flag   = true;
 post_plot_commands = {"set(hfig1.Children(4),'Ylim',[1e-11,1e-3]);",...
                       "yticks(hfig1.Children(4),10.^(-11:1:-3));",  ...
                       "set(hfig1.Children(4),'Xlim',[10,1000])",    ...
@@ -176,18 +82,13 @@ post_plot_commands = {"set(hfig1.Children(4),'Ylim',[1e-11,1e-3]);",...
                       "set(hfig1.Children(2),'Ylim',[0,5]);",...
                       "set(hfig1.Children(2),'Xlim',[10,1000])",...
                       "set(hfig1.Children(1),'Visible','off');"};
-% post_plot_commands = {"set(hfig1.Children(4),'Ylim',[1e-5,1e0]);",...
-%                       "yticks(hfig1.Children(4),10.^(-5:1:0));",  ...
-%                       "set(hfig1.Children(4),'Xlim',[10,1000])",    ...
-%                       "set(hfig1.Children(3),'Location','southwest');",...
-%                       "set(hfig1.Children(2),'Ylim',[0,5]);",...
-%                       "set(hfig1.Children(2),'Xlim',[10,1000])",...
-%                       "set(hfig1.Children(1),'Visible','off');"};
-print_ERR=false;
-print_OOA=false;
-target_folder = 'C:\Users\wajordan\Desktop\CCAS_Annual_Review_Plots\OOA\L1_NORM';
-err_file = 'ERR_L1_U_and_P_only_0_IC.png';
-ooa_file = 'OOA_L1_U_and_P_only_0_IC.png';
+print_ERR=true;
+print_OOA=true;
+target_folder = 'C:\Users\wajordan\Desktop\SciTech_Plots\ERR_norms_airfoil';
+for j = 0:10
+iter_select = {[j],[j],[j]};
+err_file = sprintf('ERR_%0.2d.png',j);
+ooa_file = sprintf('OOA_%0.2d.png',j);
 
 [hfig1,DE_test] = parse_and_plot_new2(dim,r_fac, foldernames,          ...
                                                           var_select,   ...
@@ -200,7 +101,8 @@ ooa_file = 'OOA_L1_U_and_P_only_0_IC.png';
                                                           color_spec,   ...
                                                           legend_flag );
 cellfun(@eval,post_plot_commands)
-
+label_iteration(hfig1.Children(4),j);
+label_iteration(hfig1.Children(2),j);
 if (print_ERR)
     exportgraphics(hfig1.Children(4),fullfile(target_folder,err_file),'Resolution',600)
 end
@@ -208,17 +110,14 @@ if (print_OOA)
     exportgraphics(hfig1.Children(2),fullfile(target_folder,ooa_file),'Resolution',600)
 end
 
-% set(hfig1.Children(4),'Ylim',[1e-17,1e-12])
-% set(hfig1.Children(4),'Ylim',[1e-12,1e0])
-% yticks(hfig1.Children(4),10.^(-12:2:0))
-% set(hfig1.Children(4),'Xlim',[10,10000])
-% set(hfig1.Children(3),'Visible','off');
-% set(hfig1.Children(3),'Location','southwest');
-% set(hfig1.Children(2),'Ylim',[0,6])
-% yticks(hfig1.Children(2),0:6)
-% set(hfig1.Children(2),'Xlim',[10,10000])
-% set(hfig1.Children(1),'Visible','off');
-% set(hfig1.Children(1),'Location','southwest');
-% set(hfig1.Children(3),'XlimMode','auto')
-% set(hfig1.Children(2),'XLimMode','auto')
-% hfig1.Children(2).Legend.Location = 'southwest';
+end
+
+function label_iteration(ax,iter)
+
+xpos = 0.4;
+ypos = 0.97;
+txt = sprintf('Iterative Correction: %d',iter);
+
+text(ax,xpos,ypos,txt,'Interpreter','latex','Units','Normalized',...
+                      'VerticalAlignment','top')
+end

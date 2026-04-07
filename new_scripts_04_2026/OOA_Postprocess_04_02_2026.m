@@ -1,4 +1,4 @@
-%% Parsing KT-airfoil data (11/23/2025)
+%% Parsing KT-airfoil data (04/02/2026)
 clc; clear; close all;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 parent_dir_str = 'SENSEI_POSTPROCESSING';
@@ -67,6 +67,19 @@ foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2026-01-15_03.10.0
 foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_2026-02-13_12.01.06_ORDER_4_bc_IC_10_100_iter_GEO4'];% 36
 foldernames1 = [foldernames1,'ALPHA_5_JOUKOWSKI_C_GRID_curved_limited_2026-02-13_12.00.09_ORDER_4_bc_IC_10_100_iter_GEO4'];% 37
 
+foldernames1 = [foldernames1,'JOUKOWSKI_C_GRID_curved_04_01_2026-04-02_12.20.09'];        %38
+foldernames1 = [foldernames1,'JOUKOWSKI_C_GRID_curved_04_01_regress_2026-04-02_12.21.04'];%39
+
+foldernames1 = [foldernames1,'JOUKOWSKI_C_GRID_curved_clustered_04_02_regress_2026-04-02_14.54.19'];%40
+foldernames1 = [foldernames1,'JOUKOWSKI_C_GRID_curved_clustered_04_02_2026-04-02_14.54.15'];%41
+
+foldernames1 = [foldernames1,'JOUKOWSKI_C_GRID_curved_clustered_04_02_regress_2026-04-02_19.10.44'];%42
+foldernames1 = [foldernames1,'JOUKOWSKI_C_GRID_curved_clustered_04_02_2026-04-02_19.10.39'];%43
+
+foldernames1 = [foldernames1,'JOUKOWSKI_C_GRID_curved_clustered_04_02_regress_2026-04-03_11.01.28'];%44
+foldernames1 = [foldernames1,'JOUKOWSKI_C_GRID_curved_clustered_04_02_2026-04-03_10.47.17'];%45
+
+
 foldernames1 = cellfun(@(str_b)strcat(DATA_DIR,str_b),foldernames1,UniformOutput=false);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -120,14 +133,32 @@ foldernames = foldernames1([13,13,35]); iter_select = {[],[0],[0]}; tag_fmt = { 
 
 % foldernames = foldernames1([35,35]); iter_select = {[],[]}; tag_fmt = { '' };
 
-foldernames = foldernames1([37,36,37]); iter_select = {[],[0],[0]}; tag_fmt = { '', '(unlimited)', '(limited)' };
+% foldernames = foldernames1([37,36,37]); iter_select = {[],[0],[0]}; tag_fmt = { '', '(unlimited)', '(limited)' };
+% var_select    = [ 3, 4, 4 ];
+% var_mask      = {[ 1, 1, 1, 1 ]};
+% norm_select   = [2];
+% layer_select  = {[]};
+% line_fmt      = { '-', '-.', '--' };
+% color_spec    = {lines(4)};
+% legend_flag   = true;
+
+foldernames = foldernames1([44,42,44]); iter_select = {[],[200],[200]}; tag_fmt = { '', '(k-exact)', '(cweno)' };
 var_select    = [ 3, 4, 4 ];
 var_mask      = {[ 1, 1, 1, 1 ]};
-norm_select   = [2];
+norm_select   = [1];
 layer_select  = {[]};
 line_fmt      = { '-', '-.', '--' };
 color_spec    = {lines(4)};
 legend_flag   = true;
+
+% foldernames = foldernames1([43]); iter_select = {[0:10:200]}; tag_fmt = { '' };
+% var_select    = [ 2 ];
+% var_mask      = {[ 1, 1, 1, 1 ]};
+% norm_select   = [3];
+% layer_select  = {[]};
+% line_fmt      = { '-' };
+% color_spec    = {lines(4)};
+% legend_flag   = true;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
