@@ -210,13 +210,6 @@ for i = 1:N_files
     H(i).primal_CD(:,:) = primal_CD;
 end
 
-% get maximum number of successful iterative corrections
-max_ic = 1;
-for i = 1:N_files
-    [ete_CX,~,~,~] = get_force_history_data_from_file(file_name,alpha);
-    max_ic = max(max_ic,size(ete_CX,1));
-end
-
 % Now loop through the folders and grab the corresponding files
 for i = 1:N_files
 
@@ -238,11 +231,24 @@ for i = 1:N_files
             H(i).ete_CD(j,:) = ete_CD(j);
         end
     end
+end
 
+% get maximum number of successful iterative corrections
+max_ic = 1;
+for i = 1:N_files
+    TMP = dir(fullfile(folder,folders{i},history_pat{3}));
+    if (~isempty(TMP))
+        file_name = fullfile(TMP.folder,TMP.name);
+        [ete_CX,~,~,~] = get_force_history_data_from_file(file_name,alpha);
+        max_ic = max(max_ic,size(ete_CX,1));
+    end
+end
+
+for i = 1:N_files
     H(i).ic_CX = nan(max_ic,1);
     H(i).ic_CY = nan(max_ic,1);
-    H(i).ic_CL = nan(1,1);
-    H(i).ic_CD = nan(1,1);
+    H(i).ic_CL = nan(max_ic,1);
+    H(i).ic_CD = nan(max_ic,1);
     TMP = dir(fullfile(folder,folders{i},history_pat{3}));
     if (isempty(TMP))
         warning('No ic-force_history.dat in folder: %s\n',folders{i})
