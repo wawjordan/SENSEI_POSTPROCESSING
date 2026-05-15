@@ -45,6 +45,10 @@ foldernames1 = [foldernames1,  'JOUKOWSKI_C_GRID_curved_v3_04_09_2026-04-10_11.4
 
 foldernames1 = [foldernames1,  'REGRESS_4_JOUKOWSKI_C_GRID_curved_v3_04_09_regress_2026-05-13_12.36.01'      ]; % 19
 
+foldernames1 = [foldernames1,  'ITER_0_JOUKOWSKI_C_GRID_curved_v3_04_09_regress_2026-05-14_20.02.21'      ]; % 20
+
+
+
 
 
 
@@ -98,10 +102,10 @@ foldernames1 = cellfun(@(str_b)strcat(DATA_DIR,str_b),foldernames1,UniformOutput
 % color_spec    = {lines(4)};
 % legend_flag   = true;
 
-foldernames = foldernames1([18,18,19]); iter_select = {[],[10],[10]}; tag_fmt = { '' };
+foldernames = foldernames1([19,19,20]); iter_select = {[],[10],[10]}; tag_fmt = { '' };
 var_select    = [ 3, 4, 4 ];
 var_mask      = {[ 1, 1, 1, 1 ]};
-norm_select   = [3];
+norm_select   = [1];
 layer_select  = {[]};
 line_fmt      = { '-', '--', ':' };
 color_spec    = {lines(4)};

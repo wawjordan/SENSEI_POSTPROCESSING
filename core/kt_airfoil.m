@@ -69,7 +69,9 @@ classdef kt_airfoil
         function val = CY(this)
             val = this.CL * cos(this.alpha);
         end
-
+        function val = CP(this,theta)
+            val = ( this.airfoil_pressure(this.cylinder_map(theta)) - this.pinf )./(0.5*this.rhoinf*this.vinf^2);
+        end
         function [h1,h2] = plot_airfoil(this,scale)
             if (scale)
                 zfun = @(theta) ( this.airfoil_coords(theta) - this.airfoil_coords(this.thetaLE) )./this.chord;
@@ -388,6 +390,22 @@ classdef kt_airfoil
 
             bool = err < tol;
         end
+        function theta = get_theta_from_z_scalar(this,z,scale)
+            if (scale)
+                z = z.*this.chord + this.airfoil_coords(this.thetaLE);
+            end
+            zeta = this.z_to_zeta(z);
+            z_fun = @(theta) abs( this.cylinder_map(theta) - zeta );
+            options = optimset('TolFun',1e-12,'TolX',1e-16);
+            theta_guess = real( -1i*log( (zeta-this.mu)/this.a ) );
+            theta = fminsearch(@(theta)z_fun(theta),theta_guess,options);
+        end
+        function theta = get_theta_from_z_new(this,z,scale)
+            theta = arrayfun( @(z) this.get_theta_from_z_scalar(z,scale), z );
+        end
+        function theta = get_theta_from_xy(this,x,y,scale)
+            theta = get_theta_from_z_new(this,x + 1i*y, scale );
+        end
         function [t0,t1] = get_theta_from_z(this,x1,y1,x2,y2,scale)
             z1 = x1 + 1i*y1;
             z2 = x2 + 1i*y2;
@@ -485,6 +503,39 @@ classdef kt_airfoil
             end
             vol = this.integrate_polygon_area(x,y,scale,use_curv);
             src = src/vol;
+        end
+        function [t0,t1] = get_segment_theta(this,x1,y1,x2,y2,scale)
+            tol = 1e-8;
+            point1_on_surface = this.on_airfoil(x1,y1,scale,tol);
+            point2_on_surface = this.on_airfoil(x2,y2,scale,tol);
+            if ~( point1_on_surface || point2_on_surface )
+                fprintf('off surface\n');
+            end
+            [t0,t1] = this.get_theta_from_z(x1,y1,x2,y2,scale);
+        end
+        function [h] = plot_piecewise_constant_data_theta(this,x,y,v,scale,varargin)
+            theta = this.get_theta_from_coords_piecewise_constant(x,y,scale);
+            vals   = [v(:).';v(:).']; vals = vals(:);
+            h = plot(theta,vals,varargin{:});
+        end
+        function [theta1,theta2] = get_theta_from_coords(this,x,y,scale)
+            N     = length(x);
+            theta1 = zeros(N,1);
+            theta2 = zeros(N,1);
+            [theta1(1),~] = this.get_segment_theta(x(1),y(1),x(2),y(2),scale);
+            for i = 1:N-1
+                [theta1(i+1),theta2(i)] = this.get_segment_theta(x(i),y(i),x(i+1),y(i+1),scale);
+            end
+            [~,theta2(N)] = this.get_segment_theta(x(N-1),y(N-1),x(N),y(N),scale);
+        end
+        function theta = get_theta_from_coords_piecewise_constant(this,x,y,scale)
+            theta1 = this.get_theta_from_xy(x,y,scale);
+            theta2 = wrapTo2Pi(theta1);
+            if ( theta1(1)>0 && theta1(2)<0 )
+                theta2(1) = theta2(1)+2*pi;
+            end
+            theta2 = theta2(:);
+            theta = [theta2(1:end-1).';theta2(2:end).']; theta = theta(:);
         end
         function Cp = get_averaged_cp_on_segment(this,x1,y1,x2,y2,scale,use_curv)
             tol = 1e-8;
