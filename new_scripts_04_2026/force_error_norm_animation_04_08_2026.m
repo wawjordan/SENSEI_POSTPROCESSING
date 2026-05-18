@@ -75,10 +75,10 @@ err_var_primal_1_1 = abs([DATA1.H(:).(['primal_',var])]-airfoil.(var));
 %% Grid convergence of CL/CD error
 print_ERR=true;
 print_OOA=true;
-target_folder = 'C:\Users\wajordan\Desktop\Meeting_Plots\research_meeting_04_08_2026';
-v = VideoWriter(fullfile(target_folder,[var,'_error_anim.mp4']),"MPEG-4");
+target_folder = 'C:\Users\wajordan\Desktop\Meeting_Plots\ASME_VVUQ_2026_plots\ERR_CL';
+v = VideoWriter(fullfile(target_folder,[var,'_error_anim_10.mp4']),"MPEG-4");
 v.Quality = 100;
-v.FrameRate = 10;
+v.FrameRate = 2;
 open(v);
 new = true;
 for j = 0:200

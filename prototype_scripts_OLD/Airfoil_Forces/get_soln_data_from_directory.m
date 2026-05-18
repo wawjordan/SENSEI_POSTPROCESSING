@@ -31,10 +31,15 @@ for i = 1:N_files2
     S(i).N  = cellfun(@str2double,regexp(folders2{i},'\d*','match'));
     S(i).N  = sqrt(prod(S(i).N));
     file_name = fullfile(TMP2(i).folder,TMP2(i).name);
-    DATA = tec2mat_structured_condensed(file_name);
-    file_name2 = replace(file_name, replace(pat2,'*',''), replace(pat1,'*','') );
-    save(file_name2,'DATA');
-    S(i).DATA = DATA;
+    try
+        DATA = tec2mat_structured_condensed(file_name);
+        file_name2 = replace(file_name, replace(pat2,'*',''), replace(pat1,'*','') );
+        save(file_name2,'DATA');
+        S(i).DATA = DATA;
+    catch
+        warning('Error reading data from %s',file_name);
+        S(i).DATA = [];
+    end
 end
 
 end

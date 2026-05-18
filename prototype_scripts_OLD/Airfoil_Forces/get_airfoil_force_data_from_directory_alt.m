@@ -33,34 +33,35 @@ N_files = length(D);
 % get the corresponding source term data
 tol = 100*eps(1);
 for n = 1:N_files
-    S(n).N  = D(n).N;
-    x   = D(n).DATA.ZONE.X;
-    y   = D(n).DATA.ZONE.Y;
-    src = D(n).DATA.ZONE.SRC_ENERGY;
-    mask = x(:,1,1)<=1+tol;
-    idx = find(mask);
-    S(n).src = src(idx(1:end-1),1,1);
-
-    x1 = x(idx,1:2,1);
-    y1 = y(idx,1:2,1);
-
-
-    S(n).src_ex_lin = S(n).src * 0;
-    S(n).src_ex     = S(n).src * 0;
-    S(n).src_err_lin = S(n).src * 0;
-    S(n).src_err     = S(n).src * 0;
-    for i = 1:sum(mask)-1
-        xtmp = [x1(i,1),x1(i+1,1),x1(i+1,2),x1(i,2)];
-        ytmp = [y1(i,1),y1(i+1,1),y1(i+1,2),y1(i,2)];
-        src_tmp = airfoil.calculate_source(xtmp,ytmp,true,false);
-        S(n).src_ex_lin(i)  = src_tmp(5);
-        src_tmp = airfoil.calculate_source(xtmp,ytmp,true,true);
-        S(n).src_ex(i)  = src_tmp(5);
-        S(n).src_err_lin(i)  = S(n).src(i) - S(n).src_ex_lin(i);
-        S(n).src_err(i)  = S(n).src(i) - S(n).src_ex(i);
+    if ~isempty(D(n).DATA)
+        S(n).N  = D(n).N;
+        x   = D(n).DATA.ZONE.X;
+        y   = D(n).DATA.ZONE.Y;
+        src = D(n).DATA.ZONE.SRC_ENERGY;
+        mask = x(:,1,1)<=1+tol;
+        idx = find(mask);
+        S(n).src = src(idx(1:end-1),1,1);
+    
+        x1 = x(idx,1:2,1);
+        y1 = y(idx,1:2,1);
+    
+    
+        S(n).src_ex_lin = S(n).src * 0;
+        S(n).src_ex     = S(n).src * 0;
+        S(n).src_err_lin = S(n).src * 0;
+        S(n).src_err     = S(n).src * 0;
+        for i = 1:sum(mask)-1
+            xtmp = [x1(i,1),x1(i+1,1),x1(i+1,2),x1(i,2)];
+            ytmp = [y1(i,1),y1(i+1,1),y1(i+1,2),y1(i,2)];
+            src_tmp = airfoil.calculate_source(xtmp,ytmp,true,false);
+            S(n).src_ex_lin(i)  = src_tmp(5);
+            src_tmp = airfoil.calculate_source(xtmp,ytmp,true,true);
+            S(n).src_ex(i)  = src_tmp(5);
+            S(n).src_err_lin(i)  = S(n).src(i) - S(n).src_ex_lin(i);
+            S(n).src_err(i)  = S(n).src(i) - S(n).src_ex(i);
+        end
     end
 end
-
 end
 
 function G = read_surface_from_folder(folder,nskip)

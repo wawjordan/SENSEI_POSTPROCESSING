@@ -11,6 +11,7 @@ clear parent_dir_str path_idx path_parts
 clc;
 DATA_DIR='C:\Users\wajordan\Desktop\git_MATLAB\SENSEI_POSTPROCESSING\new_scripts_04_2026\data_preprocess';
 file_name = 'F_17_18.mat';
+file_name = 'F_ALL_05_16_2026.mat';
 load(fullfile(DATA_DIR,file_name));
 
 
