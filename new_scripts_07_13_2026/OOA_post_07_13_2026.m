@@ -16,13 +16,24 @@ r_fac = 2;
 %% for use with 'parse_and_plot_new2'
 DATA_DIR='C:\Users\wajordan\Desktop\CASES\';
 foldernames1 = {};
-% foldernames1 = [foldernames1,'JOUKOWSKI_C_GRID_curved_v2_04_08_regress_2026-04-09_11.38.29'];
 % foldernames1 = [foldernames1,'JOUKOWSKI_C_GRID_curved_v2_04_08_regress_regress_2026-07-13_14.26.26'];
-foldernames1 = [foldernames1,'KT_AR_1_1_P2_ALPHA_5_2026-07-14_00.34.46'];
-foldernames1 = [foldernames1,'KT_AR_1_10_P2_ALPHA_5_2026-07-14_00.35.35'];
-foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_5_2026-07-20_10.39.40'];
-foldernames1 = [foldernames1,'KT_AR_1_10_P4_ALPHA_5_2026-07-20_10.40.03'];
-
+% foldernames1 = [foldernames1,'KT_AR_1_1_P2_ALPHA_05_2026-07-14_00.34.46'];
+% foldernames1 = [foldernames1,'KT_AR_1_10_P2_ALPHA_05_2026-07-14_00.35.35'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_05_2026-07-20_10.39.40'];
+% foldernames1 = [foldernames1,'KT_AR_1_10_P4_ALPHA_05_2026-07-20_10.40.03'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_00_2026-07-20_19.05.51'];
+% foldernames1 = [foldernames1,'KT_AR_1_10_P4_ALPHA_00_2026-07-20_19.06.05'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_05A_2026-07-20_20.45.05'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_05A_N20_2026-07-20_22.23.14'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_TE_10_P4_ALPHA_05_2026-07-20_22.15.53'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_TE_10_P4_ALPHA_05_NEW_2026-07-21_13.39.19'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_05A_D1_2026-07-21_16.31.38'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_05A_D02_2026-07-22_14.15.01'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_05A_D005_2026-07-22_14.15.18'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_00_NEW_2026-07-23_10.23.07'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_05_NEW_2026-07-23_20.13.17'];
+foldernames1 = [foldernames1,'KT_AR_1_1_TE_10_P4_ALPHA_05_NEW_2026-07-24_11.46.58'];
+foldernames1 = [foldernames1,'KT_AR_1_1_TE_10_P4_ALPHA_05_NEW_PW_2026-07-24_18.46.06'];
 
 
 
@@ -30,23 +41,24 @@ foldernames1 = cellfun(@(str_b)strcat(DATA_DIR,str_b),foldernames1,UniformOutput
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% foldernames = foldernames1([1,2,3]); iter_select = {[],[],[]}; tag_fmt = { '' };
-% var_select    = [ 3, 3, 3 ];
+% foldernames = foldernames1([1,1,2]); iter_select = {[],[30],[30]}; tag_fmt = { '' };
+% var_select    = [ 3, 4, 4];
 % var_mask      = {[ 1, 1, 1, 1 ]};
 % norm_select   = [3];
 % layer_select  = {[]};
-% line_fmt      = { '-', '--', ':' };
+% line_fmt      = { '-', '--', ':'};
 % color_spec    = {lines(4)};
 % legend_flag   = true;
 
-foldernames = foldernames1([3,3,4]); iter_select = {[],[0],[0]}; tag_fmt = { '' };
-var_select    = [ 3, 4, 4];
+foldernames = foldernames1([1,1,2]); iter_select = {[],[],[]}; tag_fmt = { '' };
+var_select    = [ 3, 4, 4 ];
 var_mask      = {[ 1, 1, 1, 1 ]};
-norm_select   = [1];
+norm_select   = [3];
 layer_select  = {[]};
 line_fmt      = { '-', '--', ':'};
 color_spec    = {lines(4)};
 legend_flag   = true;
+
 
 post_plot_commands = {"set(hfig1.Children(4),'Ylim',[1e-11,1e-3]);",...
                       "yticks(hfig1.Children(4),10.^(-11:1:-3));",  ...
