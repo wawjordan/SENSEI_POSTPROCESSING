@@ -32,16 +32,46 @@ foldernames1 = {};
 % foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_05A_D005_2026-07-22_14.15.18'];
 % foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_00_NEW_2026-07-23_10.23.07'];
 % foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_05_NEW_2026-07-23_20.13.17'];
-foldernames1 = [foldernames1,'KT_AR_1_1_TE_10_P4_ALPHA_05_NEW_2026-07-24_11.46.58'];
-foldernames1 = [foldernames1,'KT_AR_1_1_TE_10_P4_ALPHA_05_NEW_PW_2026-07-24_18.46.06'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_TE_10_P4_ALPHA_05_NEW_2026-07-24_11.46.58'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_TE_10_P4_ALPHA_05_NEW_PW_2026-07-24_18.46.06'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_05_NEW_1_2_2026-07-25_12.32.37'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_05_NEW_1_4_2026-07-25_23.01.18'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_05_NEW_2_1_2026-07-25_23.00.56'];
+% foldernames1 = [foldernames1,'500_iter_KT_AR_1_1_TE_10_P2_ALPHA_05_2026-07-30_08.14.26'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_TE_10_P2_ALPHA_05_NEW_2026-07-30_22.51.08'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_TE_10_P2_ALPHA_05_NEW_2026-08-03_09.18.42'];
+% foldernames1 = [foldernames1,'halfbody_test_AR_1_08062026_2026-08-07_10.42.34'];
+foldernames1 = [foldernames1,'halfbody_test_AR_1_08062026_2026-08-07_13.08.29'];
+% foldernames1 = [foldernames1,'halfbody_test_AR_1_d2_nonsmooth_08072026_2026-08-07_15.15.14'];
+% foldernames1 = [foldernames1,'halfbody_test_AR_1_no_constraints_08062026_2026-08-07_17.11.34'];
+% foldernames1 = [foldernames1,'halfbody_test_AR_1_mms_bound_08072026_2026-08-07_17.14.53'];
+
+% foldernames1 = [foldernames1,'halfbody_test_AR_1_lowspeed_08072026_2026-08-07_17.34.36'];
+% foldernames1 = [foldernames1,'halfbody_test_AR_1_highspeed_08072026_2026-08-07_17.42.25'];
+
+% foldernames1 = [foldernames1,'halfbody_test_AR_1_no_check_b_char_08072026_2026-08-07_17.49.26'];
+
+% foldernames1 = [foldernames1,'halfbody_test_AR_1_old_quads_08072026_2026-08-07_17.55.29'];
+
+% foldernames1 = [foldernames1,'halfbody_test_AR_1_vanleer_08072026_2026-08-07_18.01.01'];
 
 
+% foldernames1 = [foldernames1,'halfbody_test_AR_1_limit_08072026_2026-08-07_18.11.37'];
+
+% foldernames1 = [foldernames1,'halfbody_test_AR_1_ex_TE_bound_1_08072026_2026-08-07_19.07.33'];
+% foldernames1 = [foldernames1,'halfbody_test_AR_1_ex_TE_bound_2_08072026_2026-08-07_19.25.18'];
+% foldernames1 = [foldernames1,'halfbody_test_AR_1_ex_TE_bound_3_08072026_2026-08-07_19.17.49'];
+% foldernames1 = [foldernames1,'halfbody_test_AR_1_ex_TE_bound_4_08072026_2026-08-07_19.14.53'];
+% foldernames1 = [foldernames1,'halfbody_test_AR_1_ex_TE_bound_5_08072026_2026-08-07_19.11.35'];
+
+% foldernames1 = [foldernames1,'halfbody_test_AR_1_no_src_08072026_2026-08-07_19.48.28'];
+foldernames1 = [foldernames1,'halfbody_test_AR_1_LETE_08072026_2026-08-07_20.19.31'];
 
 foldernames1 = cellfun(@(str_b)strcat(DATA_DIR,str_b),foldernames1,UniformOutput=false);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% foldernames = foldernames1([1,1,2]); iter_select = {[],[30],[30]}; tag_fmt = { '' };
+% foldernames = foldernames1([1,1,2]); iter_select = {[],[],[]}; tag_fmt = { '' };
 % var_select    = [ 3, 4, 4];
 % var_mask      = {[ 1, 1, 1, 1 ]};
 % norm_select   = [3];
@@ -50,12 +80,12 @@ foldernames1 = cellfun(@(str_b)strcat(DATA_DIR,str_b),foldernames1,UniformOutput
 % color_spec    = {lines(4)};
 % legend_flag   = true;
 
-foldernames = foldernames1([1,1,2]); iter_select = {[],[],[]}; tag_fmt = { '' };
-var_select    = [ 3, 4, 4 ];
+foldernames = foldernames1([1,2]); iter_select = {[0],[0]}; tag_fmt = { '' };
+var_select    = [ 4, 4 ];
 var_mask      = {[ 1, 1, 1, 1 ]};
-norm_select   = [3];
+norm_select   = [1];
 layer_select  = {[]};
-line_fmt      = { '-', '--', ':'};
+line_fmt      = { '-', '--'};
 color_spec    = {lines(4)};
 legend_flag   = true;
 

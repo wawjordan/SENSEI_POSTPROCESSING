@@ -13,7 +13,7 @@ clc;
 inputs = struct();
 inputs.epsilon = 0.1;
 inputs.kappa   = 0.0;
-inputs.tau     = deg2rad(10.0);
+inputs.tau     = 0.0;%deg2rad(10.0);
 inputs.vinf    = 75.0;
 inputs.rhoinf  = 1.0;
 inputs.pinf    = 100000.0;
@@ -54,9 +54,12 @@ foldernames1 = {};
 % foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_05A_D02_2026-07-22_14.15.01'];
 % foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_05A_D005_2026-07-22_14.15.18'];
 % foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_00_NEW_2026-07-23_10.23.07'];
-% foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_05_NEW_2026-07-23_20.13.17'];
+foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_05_NEW_2026-07-23_20.13.17'];
 % foldernames1 = [foldernames1,'KT_AR_1_1_TE_10_P4_ALPHA_05_NEW_2026-07-24_11.46.58'];
-foldernames1 = [foldernames1,'KT_AR_1_1_TE_10_P4_ALPHA_05_NEW_PW_2026-07-24_18.46.06'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_TE_10_P4_ALPHA_05_NEW_PW_2026-07-24_18.46.06'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_05_NEW_1_2_2026-07-25_12.32.37'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_05_NEW_1_4_2026-07-25_23.01.18'];
+% foldernames1 = [foldernames1,'KT_AR_1_1_P4_ALPHA_05_NEW_2_1_2026-07-25_23.00.56'];
 
 
 foldernames1 = cellfun(@(str_b)strcat(DATA_DIR,str_b),foldernames1,UniformOutput=false);
@@ -79,7 +82,7 @@ N1 = N1/inputs.nskip;
 
 N_grids = numel(N1);
 
-var = 'CL';
+var = 'CD';
 err_var_primal_1 = abs([DATA1.H(:).(['primal_',var])]-airfoil.(var));
 err_var_primal_2 = abs([DATA2.H(:).(['primal_',var])]-airfoil.(var));
 err_var_ete_1    = abs([DATA1.H(:).(['ete_',var])]-airfoil.(var));
